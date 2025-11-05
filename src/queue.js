@@ -14,7 +14,7 @@ const { ListNode } = require('../extensions/list-node.js');
  */
 class Queue {
   constructor() {
-    this.queue = {};
+    this.queue = null;
     this.array = [];
   }
 
@@ -30,7 +30,7 @@ class Queue {
   }
 
   getUnderlyingList() {
-    return this.queue;
+    return this.convertListNodeToObject(this.queue);
   }
 
   enqueue(value) {
@@ -42,6 +42,15 @@ class Queue {
     const elem = this.array.pop();
     this.queue = Queue.createQueue(this.array);
     return elem;
+  }
+
+  convertListNodeToObject(node) {
+    if (!node) return null;
+
+    return {
+      value: node.value,
+      next: this.convertListNodeToObject(node.next),
+    };
   }
 }
 
